@@ -25,41 +25,47 @@ struct ContentView: View {
    
 //    @State private var showingSheet = false
     
-    @State private var numbers = [Int]()
-    @State private var currentNumber = 1
-    
+//    @State private var numbers = [Int]()
+//    @State private var currentNumber = 1
+
+    @AppStorage("tqpCount") private var tapCount = 0
     var body: some View {
-        NavigationView {
-            VStack {
-                List {
-                    ForEach(numbers, id: \.self) {
-                        Text("Row \($0)")
-                    }
-                    .onDelete(perform: removeRows)
-                }
-                
-                Button("Add Number") {
-                    numbers.append(currentNumber)
-                    currentNumber += 1
-                }
-            }
-            .navigationTitle("onDelete()")
-            .toolbar {
-                EditButton()
-            }
-            //        Button("Show Sheet") {
+        
+        Button("Tap count: \(tapCount)") {
+                  tapCount += 1
             
-            //            showingSheet.toggle()
-            // }
-            //        .sheet(isPresented: $showingSheet) {
-            //            SecondView(name: "@twostraws")
-            //        }
-        }
+              }
+//        NavigationView {
+//            VStack {
+//                List {
+//                    ForEach(numbers, id: \.self) {
+//                        Text("Row \($0)")
+//                    }
+//                    .onDelete(perform: removeRows)
+//                }
+//
+//                Button("Add Number") {
+//                    numbers.append(currentNumber)
+//                    currentNumber += 1
+//                }
+//            }
+//            .navigationTitle("onDelete()")
+//            .toolbar {
+//                EditButton()
+//            }
+//            //        Button("Show Sheet") {
+//
+//            //            showingSheet.toggle()
+//            // }
+//            //        .sheet(isPresented: $showingSheet) {
+//            //            SecondView(name: "@twostraws")
+//            //        }
+//        }
     }
     
-    func removeRows(at offsets: IndexSet) {
-        numbers.remove(atOffsets: offsets)
-    }
+//    func removeRows(at offsets: IndexSet) {
+//        numbers.remove(atOffsets: offsets)
+//    }
 }
 
 
