@@ -22,50 +22,38 @@ import SwiftUI
 //}
 
 struct ContentView: View {
-   
-//    @State private var showingSheet = false
+   @StateObject var expenses = Expenses()
+    @State private var showinAddExpense = false
     
-//    @State private var numbers = [Int]()
-//    @State private var currentNumber = 1
+
 
     @AppStorage("tqpCount") private var tapCount = 0
     var body: some View {
         
-        Button("Tap count: \(tapCount)") {
-                  tapCount += 1
-            
-              }
-//        NavigationView {
-//            VStack {
-//                List {
-//                    ForEach(numbers, id: \.self) {
-//                        Text("Row \($0)")
-//                    }
-//                    .onDelete(perform: removeRows)
-//                }
-//
-//                Button("Add Number") {
-//                    numbers.append(currentNumber)
-//                    currentNumber += 1
-//                }
-//            }
-//            .navigationTitle("onDelete()")
-//            .toolbar {
-//                EditButton()
-//            }
-//            //        Button("Show Sheet") {
-//
-//            //            showingSheet.toggle()
-//            // }
-//            //        .sheet(isPresented: $showingSheet) {
-//            //            SecondView(name: "@twostraws")
-//            //        }
-//        }
+        NavigationView {
+            List {
+                ForEach(expenses.items) { item in
+                    Text(item.name)
+                }
+                .onDelete(perform: removeItems)
+            }
+            .navigationTitle("iExpense")
+            .toolbar {
+                Button {
+                    showinAddExpense = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+            .sheet(isPresented: $showinAddExpense) {
+                AddView(expenses: expenses)
+            }
+        }
     }
     
-//    func removeRows(at offsets: IndexSet) {
-//        numbers.remove(atOffsets: offsets)
-//    }
+    func removeItems(at offsets: IndexSet) {
+        expenses.items.remove(atOffsets: offsets)
+    }
 }
 
 
