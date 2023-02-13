@@ -8,19 +8,6 @@
 import SwiftUI
 
 
-//struct SecondView: View {
-//
-//    @Environment(\.dismiss) var dismiss
-//
-//    let name: String
-//
-//        var body: some View {
-//            Button("Dismiss") {
-//                dismiss()
-//            }
-//        }
-//}
-
 struct ContentView: View {
    @StateObject var expenses = Expenses()
     @State private var showinAddExpense = false
@@ -30,10 +17,20 @@ struct ContentView: View {
     @AppStorage("tqpCount") private var tapCount = 0
     var body: some View {
         
+        
         NavigationView {
             List {
                 ForEach(expenses.items) { item in
-                    Text(item.name)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(item.name)
+                                .font(.headline)
+                            Text(item.type)
+                        }
+
+                        Spacer()
+                        Text(item.amount, format: .currency(code: "USD"))
+                    }
                 }
                 .onDelete(perform: removeItems)
             }
